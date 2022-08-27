@@ -9,8 +9,6 @@ function App() {
   const [currentValue, setCurrentValue] = useState(0);
   const [predictedValue, setPredictedValue] = useState(0);
   const [equalValue, setEqualValue] = useState(0);
-  
-  const [formattedCurrentValue, setFormattedCurrent] = useState('0');
 
   const [from, setFrom] = useState(2011);
   const [to, setTo] = useState(2022);
@@ -44,33 +42,27 @@ function App() {
     }
   }
 
-  function formatSeparator(text) {
-    return String(text).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-
-  function stringToNumber(text) {
-    return Number(String(text).replace('.', ''));
-  }
-
   return (
     <div>
       <div className={styles.row}>
         <input
           className={styles.textbox}
-          onChange={(event) => {
-            setCurrentValue(stringToNumber(event.target.value));
-            setFormattedCurrent(formatSeparator(stringToNumber(event.target.value)))
-          }}
-          value={formattedCurrentValue}
+          onChange={(event) => setCurrentValue(Number(event.target.value))}
         />
       </div>
       <div className={styles.row}>
+        <button
+          className={styles.button}
+          onClick={() => { calculate() }}
+        >
+          Hitung
+        </button>
       </div>
       <div className={styles.row}>
-        <p><strong>{formatSeparator(currentValue)}</strong> pada tahun <strong>{from}</strong> setara dengan <strong>{formatSeparator(predictedValue)}</strong> pada tahun <strong>{to}</strong></p>
+        <p><strong>{currentValue}</strong> pada tahun <strong>{from}</strong> setara dengan <strong>{predictedValue}</strong> pada tahun <strong>{to}</strong></p>
       </div>
       <div className={styles.row}>
-      <p>Butuh <strong>{formatSeparator(equalValue)}</strong> pada tahun <strong>{to}</strong> agar nilainya sama dengan <strong>{formatSeparator(currentValue)}</strong> pada tahun <strong>{from}</strong></p>
+      <p>Butuh <strong>{equalValue}</strong> pada tahun <strong>{to}</strong> agar nilainya sama dengan <strong>{currentValue}</strong> pada tahun <strong>{from}</strong></p>
       </div>
     </div>
   );
