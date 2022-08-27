@@ -7,6 +7,8 @@ function App() {
   const rateData = Object.values(data);
 
   const [currentValue, setCurrentValue] = useState(0);
+
+  const [referenceValue, setReferenceValue] = useState(0);
   const [predictedValue, setPredictedValue] = useState(0);
   const [equalValue, setEqualValue] = useState(0);
 
@@ -28,6 +30,7 @@ function App() {
         totalInflation += rateData[idx];
       }
 
+      setReferenceValue(currentValue);
       setPredictedValue(Math.floor(currentValue - (currentValue * (totalInflation / 100))));
       setEqualValue(Math.floor(currentValue + (currentValue * (totalInflation / 100))));
     }
@@ -37,6 +40,7 @@ function App() {
         totalInflation += rateData[idx];
       }
 
+      setReferenceValue(currentValue);
       setPredictedValue(Math.floor(currentValue + (currentValue * (totalInflation / 100))));
       setEqualValue(Math.floor(currentValue - (currentValue * (totalInflation / 100))));
     }
@@ -47,22 +51,26 @@ function App() {
       <div className={styles.row}>
         <input
           className={styles.textbox}
-          onChange={(event) => setCurrentValue(Number(event.target.value))}
+          onChange={(event) => {
+            setCurrentValue(Number(event.target.value))}
+          }
         />
       </div>
       <div className={styles.row}>
         <button
           className={styles.button}
-          onClick={() => { calculate() }}
+          onClick={() => {
+            calculate();
+          }}
         >
           Hitung
         </button>
       </div>
       <div className={styles.row}>
-        <p><strong>{currentValue}</strong> pada tahun <strong>{from}</strong> setara dengan <strong>{predictedValue}</strong> pada tahun <strong>{to}</strong></p>
+        <p><strong>{referenceValue}</strong> pada tahun <strong>{from}</strong> setara dengan <strong>{predictedValue}</strong> pada tahun <strong>{to}</strong></p>
       </div>
       <div className={styles.row}>
-      <p>Butuh <strong>{equalValue}</strong> pada tahun <strong>{to}</strong> agar nilainya sama dengan <strong>{currentValue}</strong> pada tahun <strong>{from}</strong></p>
+      <p>Butuh <strong>{equalValue}</strong> pada tahun <strong>{to}</strong> agar nilainya sama dengan <strong>{referenceValue}</strong> pada tahun <strong>{from}</strong></p>
       </div>
     </div>
   );
