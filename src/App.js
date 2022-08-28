@@ -103,10 +103,11 @@ function App() {
         </select>
       </div>
       <div className={styles.row}>
-        <p><strong>Rp.{formatMonetary(referenceValue)}</strong> pada tahun <strong>{fromValue}</strong> nilainya setara dengan <strong>Rp.{formatMonetary(predictedValue)}</strong> pada tahun <strong>{toValue}</strong> akibat inflasi <strong>{inflation}%</strong></p>
-      </div>
-      <div className={styles.row}>
-        <p><strong>Rp.{formatMonetary(equalValue)}</strong> pada tahun <strong>{toValue}</strong> nilainya setara dengan <strong>Rp.{formatMonetary(referenceValue)}</strong> pada tahun <strong>{fromValue}</strong> akibat inflasi <strong>{inflation}%</strong></p>
+      {
+        (fromValue < toValue)
+        ? <p><strong>Rp.{formatMonetary(referenceValue)}</strong> di tahun <strong>{fromValue}</strong> nilainya setara dengan <strong>Rp.{formatMonetary(equalValue)}</strong> di tahun <strong>{toValue}</strong> akibat inflasi <strong>{inflation}%</strong></p>
+        : <p><strong>Rp.{formatMonetary(referenceValue)}</strong> di tahun <strong>{fromValue}</strong> nilainya setara dengan <strong>Rp.{formatMonetary(predictedValue)}</strong> di tahun <strong>{toValue}</strong> akibat inflasi <strong>{inflation}%</strong></p>
+      }
       </div>
     </div>
   );
